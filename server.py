@@ -60,7 +60,7 @@ def get_article_contents():
     driver = webdriver.Chrome("/usr/lib/chromium-browser/chromedriver", chrome_options=options)
 
     page_source = driver.page_source
-    soup = BeautifulSoup(page.content, 'html.parser')
+    soup = BeautifulSoup(page_source, 'html.parser')
     story_main = soup.find("div", {"class": "story_main"})
 
     print(story_main)
