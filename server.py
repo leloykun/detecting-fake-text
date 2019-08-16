@@ -66,7 +66,7 @@ def analyze_text():
 
     topk_cnt = 0
     for i, bpe_string in enumerate(res['bpe_strings'][1:]):
-        for j in range(10):
+        for j in range(TOPK):
             if res['pred_topk'][i][j][0] == bpe_string:
                 topk_cnt += 1
                 break
