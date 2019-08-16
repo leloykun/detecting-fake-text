@@ -64,7 +64,6 @@ def get_article_contents():
     time.sleep(0.25)
 
     page_source = driver.page_source
-    print(page_source)
 
     soup = BeautifulSoup(page_source, 'html.parser')
     story_main = soup.find("div", {"class": "story_main"})
