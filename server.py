@@ -7,6 +7,9 @@ import yaml
 from flask import send_from_directory, redirect, request, jsonify
 from flask_cors import CORS
 
+from selenium import webdriver
+from bs4 import BeautifulSoup
+
 # from backend.Project import Project # TODO !!
 from backend import AVAILABLE_MODELS
 
@@ -45,6 +48,28 @@ def analyze(analyze_request):
         "result": res
     }
 
+@app.route('/get_article_contents', methods=['GET', 'POST'])
+def get_article_contents():
+    data = request.get_json()
+    url = data['url']
+
+    options = webdriver.ChromeOptions()
+    options.add_argument('--ignore-certificate-errors')
+    options.add_argument('--incognito')
+    options.add_argument('--headless')
+    driver = webdriver.Chrome("/usr/lib/chromium-browser/chromedriver", chrome_options=options)
+
+    page_source = driver.page_source
+    soup = BeautifulSoup(page.content, 'html.parser')
+    story_main = soup.find("div", {"class": "story_main"})
+
+    print(story_main)
+    # content = ''
+    #for p in story_main.find_all('p'):
+    #    for pc in p.contents:
+    #        content += pc
+    return "content"
+
 TOPK = 10
 
 @app.route('/analyze_text', methods=['GET', 'POST'])
@@ -61,8 +86,6 @@ def analyze_text():
         res = p.lm.check_probabilities(text, topk=TOPK)
 
     print(text, project)
-    print(len(res['bpe_strings'][1:]))
-    print(len(res['pred_topk']))
 
     topk_cnt = 0
     for i, bpe_string in enumerate(res['bpe_strings'][1:]):
