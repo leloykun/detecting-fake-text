@@ -157,6 +157,17 @@ if __name__ == '__main__':
     if not args.no_cors:
         CORS(app.app, headers='Content-Type')
 
+
+    try:
+        model = AVAILABLE_MODELS[args.model]
+    except KeyError:
+        print("Model {} not found. Make sure to register it.".format(
+            args.model))
+        print("Loading GPT-2 instead.")
+        model = AVAILABLE_MODELS['gpt-2']
+    projects[args.model] = Project(model, args.model)
+
+
     app.run(port=int(args.port), debug=not args.nodebug, host=args.address)
 else:
     args, _ = parser.parse_known_args()
