@@ -6,3 +6,4 @@ flask
 PyYaml
 flask_cors
 selenium
+bs4
