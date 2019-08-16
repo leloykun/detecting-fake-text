@@ -48,6 +48,7 @@ def analyze(analyze_request):
 @app.route('/analyze_text', methods=['GET', 'POST'])
 def analyze_text():
     data = request.get_json()
+    print(data)
 
     project = 'gpt-2'
     text = data['text']
