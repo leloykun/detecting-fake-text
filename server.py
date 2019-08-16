@@ -60,8 +60,8 @@ def get_article_contents():
     options.add_argument('--headless')
 
     driver = webdriver.Chrome("/usr/lib/chromium-browser/chromedriver", chrome_options=options)
-    driver.get("https://www.tripadvisor.com/Airline_Review-d8729157-Reviews-Spirit-Airlines#REVIEWS")
-    time.sleep(0.5)
+    driver.get(url)
+    time.sleep(0.25)
 
     page_source = driver.page_source
     print(page_source)
