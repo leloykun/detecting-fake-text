@@ -50,7 +50,7 @@ def analyze_text():
     data = request.get_json()
     print(data)
 
-    project = 'gpt-2'
+    project = data['project']
     text = data['text']
 
     res = {}
