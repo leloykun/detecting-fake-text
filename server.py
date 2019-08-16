@@ -59,7 +59,8 @@ def analyze_text():
         res = p.lm.check_probabilities(text, topk=20)
 
     print(text, project)
-    print(res)
+    print(len(res['bpe_strings'][1:]))
+    print(len(res['pred_topk']))
 
     return jsonify({
         "request": {'project': project, 'text': text},
