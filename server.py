@@ -3,6 +3,7 @@
 import argparse
 import connexion
 import os
+import time
 import yaml
 from flask import send_from_directory, redirect, request, jsonify
 from flask_cors import CORS
@@ -57,9 +58,14 @@ def get_article_contents():
     options.add_argument('--ignore-certificate-errors')
     options.add_argument('--incognito')
     options.add_argument('--headless')
+
     driver = webdriver.Chrome("/usr/lib/chromium-browser/chromedriver", chrome_options=options)
+    driver.get("https://www.tripadvisor.com/Airline_Review-d8729157-Reviews-Spirit-Airlines#REVIEWS")
+    time.sleep(0.5)
 
     page_source = driver.page_source
+    print(page_source)
+
     soup = BeautifulSoup(page_source, 'html.parser')
     story_main = soup.find("div", {"class": "story_main"})
 
