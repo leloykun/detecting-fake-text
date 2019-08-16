@@ -62,9 +62,17 @@ def analyze_text():
     print(len(res['bpe_strings'][1:]))
     print(len(res['pred_topk']))
 
+    top10_cnt = 0
+    for i, bpe_string in enumerate(res['bpe_strings'][1:]):
+        for j in range(10):
+            if res['pred_topk'][i][j][0] == bpe_string:
+                top10_cnt += 1
+                break
+
     return jsonify({
         "request": {'project': project, 'text': text},
-        "result": res
+        # "result": res,
+        "regularity": 1.0 * top10_cnt / len(res['bpe_strings'][1:])
     })
 
 
