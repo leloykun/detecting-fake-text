@@ -45,6 +45,8 @@ def analyze(analyze_request):
         "result": res
     }
 
+TOPK = 10
+
 @app.route('/analyze_text', methods=['GET', 'POST'])
 def analyze_text():
     data = request.get_json()
@@ -56,23 +58,23 @@ def analyze_text():
     res = {}
     if project in projects:
         p = projects[project] # type: Project
-        res = p.lm.check_probabilities(text, topk=20)
+        res = p.lm.check_probabilities(text, topk=TOPK)
 
     print(text, project)
     print(len(res['bpe_strings'][1:]))
     print(len(res['pred_topk']))
 
-    top10_cnt = 0
+    topk_cnt = 0
     for i, bpe_string in enumerate(res['bpe_strings'][1:]):
         for j in range(10):
             if res['pred_topk'][i][j][0] == bpe_string:
-                top10_cnt += 1
+                topk_cnt += 1
                 break
 
     return jsonify({
         "request": {'project': project, 'text': text},
         # "result": res,
-        "regularity": 1.0 * top10_cnt / len(res['bpe_strings'][1:])
+        "regularity": 1.0 * topk_cnt / len(res['bpe_strings'][1:])
     })
 
 
