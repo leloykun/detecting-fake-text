@@ -45,7 +45,7 @@ def analyze(analyze_request):
         "result": res
     }
 
-@app.route('/analyze_text', methods=['GET'])
+@app.route('/analyze_text', methods=['GET', 'POST'])
 def analyze_text():
     project = 'gpt-2'
     text = request.args.get("text")
