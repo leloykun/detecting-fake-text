@@ -4,7 +4,7 @@ import argparse
 import connexion
 import os
 import yaml
-from flask import send_from_directory, redirect
+from flask import send_from_directory, redirect, request, jsonify
 from flask_cors import CORS
 
 # from backend.Project import Project # TODO !!
@@ -44,6 +44,25 @@ def analyze(analyze_request):
         "request": {'project': project, 'text': text},
         "result": res
     }
+
+@app.route('/analyze_text', methods=['GET'])
+def analyze_text():
+    project = 'gpt-2'
+    text = request.args.get("text")
+
+    res = {}
+    if project in projects:
+        p = projects[project] # type: Project
+        res = p.lm.check_probabilities(text, topk=20)
+
+    print(text, project)
+    print(res)
+
+    return jsonify({
+        "request": {'project': project, 'text': text},
+        "result": res
+    })
+
 
 
 #########################
