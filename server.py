@@ -49,12 +49,17 @@ def analyze(analyze_request):
         "result": res
     }
 
+dp = {}
+
 @app.route('/get_article_contents', methods=['GET', 'POST'])
 def get_article_contents():
     start = time.time()
 
     data = request.get_json()
     url = data['url']
+
+    if url in dp:
+        return dp[url]
 
     options = webdriver.ChromeOptions()
     options.add_argument('--ignore-certificate-errors')
@@ -78,6 +83,7 @@ def get_article_contents():
     print(content)
     print("time", time.time() - start)
 
+    dp[url] = content
     return jsonify({
         "content": content
     })
