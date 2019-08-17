@@ -60,7 +60,9 @@ def get_article_contents():
 
     if url in dp:
         print("already in DP")
-        return dp[url]
+        return jsonify({
+            "content": dp[url]
+        })
 
     options = webdriver.ChromeOptions()
     options.add_argument('--ignore-certificate-errors')
