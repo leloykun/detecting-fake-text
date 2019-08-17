@@ -3,6 +3,7 @@
 import argparse
 import connexion
 import os
+import re
 import time
 import yaml
 from flask import send_from_directory, redirect, request, jsonify
@@ -49,6 +50,12 @@ def analyze(analyze_request):
         "result": res
     }
 
+
+def clean_html(raw_html):
+  cleanr = re.compile('<.*?>')
+  cleantext = re.sub(cleanr, '', raw_html)
+  return cleantext
+
 dp = {}
 
 @app.route('/get_article_contents', methods=['GET', 'POST'])
@@ -82,6 +89,8 @@ def get_article_contents():
         content += ' '.join(str(par).split()[1:-1])
 
     driver.quit()
+
+    content = clean_html(content)
 
     print(content)
     print("time", time.time() - start)
