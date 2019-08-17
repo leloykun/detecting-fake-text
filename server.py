@@ -74,7 +74,9 @@ def get_article_contents():
     driver.quit()
 
     print(content)
-    return content
+    return jsonify({
+        "content": content
+    })
 
 TOPK = 10
 
