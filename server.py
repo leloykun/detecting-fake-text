@@ -66,14 +66,13 @@ def get_article_contents():
     page_source = driver.page_source
 
     soup = BeautifulSoup(page_source, 'html.parser')
-    story_main = soup.find("div", {"class": "story_main"})
 
-    print(story_main)
-    # content = ''
-    #for p in story_main.find_all('p'):
-    #    for pc in p.contents:
-    #        content += pc
-    return "content"
+    content = ""
+    for par in soup.find_all('p'):
+        content += ' '.join(str(par).split()[1:-1])
+
+    print(content)
+    return content
 
 TOPK = 10
 
