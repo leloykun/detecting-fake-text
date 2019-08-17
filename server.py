@@ -51,6 +51,8 @@ def analyze(analyze_request):
 
 @app.route('/get_article_contents', methods=['GET', 'POST'])
 def get_article_contents():
+    start = time.time()
+
     data = request.get_json()
     url = data['url']
 
@@ -74,6 +76,8 @@ def get_article_contents():
     driver.quit()
 
     print(content)
+    print("time", time.time() - start)
+
     return jsonify({
         "content": content
     })
