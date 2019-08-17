@@ -108,6 +108,13 @@ def analyze_text():
 
     print(text, project)
 
+    if len(res['bpe_strings'][1:]):
+        return jsonify({
+            "request": {'project': project, 'text': text},
+            # "result": res,
+            "regularity": 0.0
+        })
+
     topk_cnt = 0
     for i, bpe_string in enumerate(res['bpe_strings'][1:]):
         for j in range(TOPK):
