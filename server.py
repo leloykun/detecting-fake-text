@@ -61,7 +61,7 @@ def get_article_contents():
 
     driver = webdriver.Chrome("/usr/lib/chromium-browser/chromedriver", chrome_options=options)
     driver.get(url)
-    time.sleep(0.25)
+    time.sleep(0.1)
 
     page_source = driver.page_source
 
