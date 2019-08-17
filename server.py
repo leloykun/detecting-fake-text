@@ -59,6 +59,7 @@ def get_article_contents():
     url = data['url']
 
     if url in dp:
+        print("already in DP")
         return dp[url]
 
     options = webdriver.ChromeOptions()
