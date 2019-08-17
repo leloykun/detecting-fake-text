@@ -108,7 +108,7 @@ def analyze_text():
 
     print(text, project)
 
-    if len(res['bpe_strings'][1:]):
+    if len(res['bpe_strings'][1:]) == 0:
         return jsonify({
             "request": {'project': project, 'text': text},
             # "result": res,
