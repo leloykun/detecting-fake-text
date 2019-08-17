@@ -71,6 +71,8 @@ def get_article_contents():
     for par in soup.find_all('p'):
         content += ' '.join(str(par).split()[1:-1])
 
+    driver.quit()
+
     print(content)
     return content
 
